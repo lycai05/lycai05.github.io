@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Python 网络编程 | Liuyang Cai</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://lycai05.github.io/favicon.ico?v=1687667968184">
+<link rel="stylesheet" href="https://lycai05.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. 网络通信的定义
+使用网络能够把多方链接在一起，然后可以进行数据传递。所谓的网络编程就是，让在不同的电脑上的软件能够进行数据传递，即进程之间的通信
+2. IP地址
+私有IP的范围
+国际规定有一部分 IP 地址是用于我们的局域网使用，也就..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://lycai05.github.io">
+        <img src="https://lycai05.github.io/images/avatar.png?v=1687667968184" class="site-logo">
+        <h1 class="site-title">Liuyang Cai</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      Learning bioinformatics
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lycai05.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Python 网络编程</h2>
+            <div class="post-date">2023-06-25</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1-网络通信的定义">1. 网络通信的定义</h1>
+<p>使用网络能够把多方链接在一起，然后可以进行数据传递。所谓的网络编程就是，让在不同的电脑上的软件能够进行数据传递，即进程之间的通信</p>
+<h1 id="2-ip地址">2. IP地址</h1>
+<h2 id="私有ip的范围">私有IP的范围</h2>
+<p>国际规定有一部分 IP 地址是用于我们的局域网使用，也就是属于私网 IP，不在公网中使用的，它们的范围是：</p>
+<pre><code>10.0.0.0～10.255.255.255
+172.16.0.0～172.31.255.255
+192.168.0.0～192.168.255.255
+</code></pre>
+<h3 id="查看ip">查看IP</h3>
+<p>查看或配置网卡信息：<code>ifconfig</code>(显示所有网卡的信息)<br>
+测试远程主机连通性：<code>ping</code></p>
+<h1 id="3-端口">3. 端口</h1>
+<p>在 linux 系统中，端口可以有 65536（2 的 16 次方）个之多！既然有这么多，操作系统为了统一管理，所以进行了编号，这就是端口号。</p>
+<h2 id="知名端口">知名端口</h2>
+<p>众所周知的端口号。范围从0到1023</p>
+<pre><code>80: HTTP服务
+21: FTP服务
+22: ssh服务
+443: HTTPS服务
+</code></pre>
+<h2 id="动态端口-1024到65535">动态端口。1024到65535</h2>
+<p>动态分配是指当一个系统程序或应用程序程序需要网络通信时，它向主机申请一个端口，主机从可用的端口号中分配一个供它使用。当这个程序关闭时，同时也就释放了所占用的端口号</p>
+<h2 id="查看端口">查看端口</h2>
+<ul>
+<li>用“netstat -an”查看端口状态</li>
+<li>sudo lsof -i [tcp/udp]:2425 必须是 root 才能查看 （查看哪个进程占据了2425端口）
+<ul>
+<li>sudo lsof -i tcp:22 查看哪一个进程用了这个端口</li>
+</ul>
+</li>
+<li>ps -elf | grep udp_server 查看某个进程是否还在</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lycai05.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
